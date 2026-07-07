@@ -5,7 +5,6 @@ import { Link } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { useCart } from "@/contexts/CartContext";
-import { supabase } from "@/integrations/supabase/client";
 import { toast } from "@/hooks/use-toast";
 
 const fadeUp = {
@@ -22,30 +21,38 @@ const Checkout = () => {
   const [loading, setLoading] = useState(false);
 
   const handleCheckout = async () => {
-    setLoading(true);
-    try {
-      const { data, error } = await supabase.functions.invoke("create-checkout", {
-        body: {
-          items: items.map((i) => ({
-            productId: i.product.id,
-            quantity: i.quantity,
-          })),
-        },
-      });
+  setLoading(true);
 
-      if (error) throw error;
-      if (data?.url) {
-        window.location.href = data.url;
-      } else {
-        throw new Error("No checkout URL returned");
-      }
-    } catch (err: any) {
-      toast({ title: "Checkout failed", description: err.message, variant: "destructive" });
-    } finally {
-      setLoading(false);
+  try {
+    const response = await fetch("/.netlify/functions/create-checkout", {
+      method: "POST",
+      body: JSON.stringify({
+        items: items.map((i) => ({
+          productId: i.product.id,
+          quantity: i.quantity,
+        })),
+      }),
+    });
+
+    const data = await response.json();
+
+    if (data?.url) {
+      window.location.href = data.url;
+    } else {
+      throw new Error("No checkout URL returned");
     }
-  };
 
+  } catch (err: any) {
+    toast({
+      title: "Checkout failed",
+      description: err.message,
+      variant: "destructive",
+    });
+  } finally {
+    setLoading(false);
+  }
+};
+  
   if (items.length === 0) {
     return (
       <div className="min-h-screen bg-background">
