@@ -14,9 +14,9 @@ const PaymentSuccess = () => {
   }, [clearCart]);
 
   return (
-    <div className="min-h-screen bg-background overflow-hidden">
+    <div className="min-h-screen bg-background overflow-hidden flex flex-col">
       <Navbar />
-      <section className="relative pt-32 pb-20 px-6">
+      <section className="relative pt-32 pb-20 px-6 flex-1">
         <div className="absolute inset-0 bg-gradient-to-br from-accent/15 via-background to-background pointer-events-none" />
         <motion.div
           initial={{ opacity: 0, y: 30 }}
