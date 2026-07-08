@@ -13,13 +13,16 @@ exports.handler = async (event) => {
       };
     }
 
-    const priceMap = {
-      "guided-ice": "price_1TqobQQ9xgSB9tszPa0d0UOB",
-      "21-day-reset": "price_1TqobMQ9xgSB9tszAHuU9eQ6",
-      "starter-kit": "price_1TqobLQ9xgSB9tszs3S5Zs8L",
-      "thermometer": "price_1TqobLQ9xgSB9tszZuLdK1Hh",
-      "breath-trainer": "price_1TqobLQ9xgSB9tszjbeQddEt",
-    };
+   const priceMap = {
+  "guided-ice": "price_1TqobQQ9xgSB9tszPa0d0UOB",
+  "21-day-reset": "price_1TqobMQ9xgSB9tszAHuU9eQ6",
+  "starter-kit": "price_1TqobLQ9xgSB9tszs3S5Zs8L",
+  "thermometer": "price_1TqobLQ9xgSB9tszZuLdK1Hh",
+  "breath-trainer": "price_1TqobLQ9xgSB9tszjbeQddEt",
+  "sleep-mask": "price_1TqobLQ9xgSB9tszcIcInvam",
+  "tshirt": "price_1TqobLQ9xgSB9tszD2y8XvP8",
+  "sleep-audio": "price_1TqobKQ9xgSB9tszmyosuhuQ",
+  };
 
     const line_items = items.map((item) => {
       const priceId = priceMap[item.productId];
